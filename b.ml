@@ -261,9 +261,9 @@ and eval : env -> memory -> exp -> (value * memory)
         v_lst
     in eval (extend_env (ProcBind (f, (x_lst, e1, env1))) new_env) new_mem e1
   | CALLR (f, y_lst) ->
-    let (x_lst, e, env1) = (lookup_proc_env f env) in
+    let (x_lst, e1, env1) = (lookup_proc_env f env) in
     let new_env = list_fold2 (fun envr id id2 -> extend_env (LocBind (id2, lookup_loc_env id env)) envr) env1 y_lst x_lst
-    in eval new_env mem e
+    in eval (extend_env (ProcBind (f, (x_lst, e1, env1))) new_env) mem e1
   | RECORD (x_e_lst) ->
     if (list_length x_e_lst) = 0 then (Unit, mem) else
     let (v_lst, last_m) = list_fold (fun (acc_v_lst, acc_mem) (x, e) -> let (v, m) = (eval env acc_mem e) in (acc_v_lst @ [v], m)) ([], mem) x_e_lst in
