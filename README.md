@@ -1,2 +1,3 @@
 # Programming-Languages
-My Ocaml Codes of Programming Languages (COSE212)
+
+Programming languages exercise with OCaml.
